@@ -29,7 +29,8 @@ RUN useradd -M -s /bin/false minecraft --uid 1000 && \
   mkdir -p /minecraft && \
   chown -R minecraft:minecraft /minecraft && \
   chmod -R 755 /minecraft
-
+  
+COPY server.properties /minecraft
 COPY start.sh /start.sh
 RUN chmod 755 /start.sh
 
