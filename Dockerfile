@@ -1,5 +1,3 @@
-# Nicholas Marus <nmarus@gmail.com>
-
 FROM ubuntu:trusty
 
 # Setup Container
@@ -8,14 +6,20 @@ EXPOSE 25565
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:openjdk-r/ppa
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jdk
+RUN apt-get install -y openjdk-8-jre
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
-  apt-get -y install openjdk-7-jre-headless libmozjs-24-bin wget && \
+  apt-get -y install  libmozjs-24-bin wget && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/js js /usr/bin/js24 100
 
-RUN apt install htop
+#RUN apt install htop
 
 RUN wget -q -O /usr/bin/jsawk https://github.com/micha/jsawk/raw/master/jsawk
 
